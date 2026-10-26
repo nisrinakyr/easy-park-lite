@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Easy Park Lite | Smart Parking System</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="script.js" defer></script>
+  <link rel="icon" type="image/png" href="assets/logo.png">
+</head>
+<body>
+
+<div class="app">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+
+    <div class="brand">  
+    <div class="brand-icon">
+    <img src="assets/logo.png"
+        alt="Logo Easy Park Lite"
+        class="brand-logo">
+    </div>
+      <div>
+        <h2>Easy Park Lite</h2>
+        <p>Smart Parking System</p>
+      </div>
+    </div>
+
+    <div class="sidebar-section-label">MENU UTAMA</div>
+
+    <nav class="sidebar-nav">
+      <a href="#dashboard" class="nav-link active"
+         data-page="dashboard">
+        <i data-lucide="layout-dashboard"></i>
+        <span>Dashboard</span>
+      </a>
+
+      <a href="#booking" class="nav-link" data-page="booking">
+        <i data-lucide="calendar-check"></i>
+        <span>Booking Parkir</span>
+      </a>
+
+      <a href="#reservasi" class="nav-link" data-page="reservasi">
+        <i data-lucide="clipboard-list"></i>
+        <span>Reservasi Saya</span>
+      </a>
+
+      <a href="#manajemen" class="nav-link" data-page="manajemen">
+        <i data-lucide="settings"></i>
+        <span>Manajemen Parkir</span>
+      </a>
+
+      <a href="#laporan" class="nav-link" data-page="laporan">
+        <i data-lucide="chart-no-axes-column"></i>
+        <span>Laporan Parkir</span>
+      </a>
+    </nav>
+
+    <!-- ROLE SWITCHER DEMO -->
+    <div class="role-switcher">
+      <p class="role-label">MODE APLIKASI</p>
+
+      <div class="role-buttons">
+        <button type="button" class="role-btn active"
+                data-role="user" aria-pressed="true">
+          <i data-lucide="user-round"></i>
+          Pengguna
+        </button>
+
+        <button type="button" class="role-btn"
+                data-role="admin" aria-pressed="false">
+          <i data-lucide="shield-check"></i>
+          Pengelola
+        </button>
+      </div>
+
+      <p class="role-note">
+        Ganti mode untuk simulasi tampilan setiap role.
+      </p>
+    </div>
+
+    <div class="sidebar-footer">
+      Easy Park Lite
+      <span>Prototype Version 1.0</span>
+    </div>
+
+  </aside>
+
+  <!-- MAIN -->
+  <main class="content">
+
+    <header class="topbar">
+    <div>
+        <h1 id="page-title">Dashboard Parkir</h1>
+        <p id="page-description">
+        Pantau ketersediaan slot parkir dengan mudah.
+        </p>
+    </div>
+
+    <div class="topbar-right">
+        <span class="role-indicator" id="role-indicator">
+        Mode Pengguna
+        </span>
+    </div>
+    </header>
+
+    <!-- DASHBOARD -->
+    <section id="page-dashboard" class="page active">
+
+      <div class="welcome-banner">
+        <div>
+          <span class="welcome-eyebrow">EASY PARK LITE</span>
+          <h2 id="welcome-title">
+            Selamat Datang di Easy Park Lite
+          </h2>
+          <p id="welcome-description">
+            Cari dan reservasi slot parkir dengan lebih mudah.
+          </p>
+        </div>
+
+        <div class="welcome-icon">
+          <i data-lucide="parking-square"></i>
+        </div>
+      </div>
+
+      <div class="stats">
+        <div class="stat-card">
+          <div class="stat-heading">
+            <p>Total Slot</p>
+            <span class="stat-icon blue">
+              <i data-lucide="layers"></i>
+            </span>
+          </div>
+          <h2 data-stat="total">6</h2>
+          <small>Kapasitas keseluruhan</small>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-heading">
+            <p>Slot Kosong</p>
+            <span class="stat-icon green">
+              <i data-lucide="check-circle-2"></i>
+            </span>
+          </div>
+          <h2 data-stat="kosong">0</h2>
+          <small>Siap digunakan</small>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-heading">
+            <p>Slot Terisi</p>
+            <span class="stat-icon red">
+              <i data-lucide="car-front"></i>
+            </span>
+          </div>
+          <h2 data-stat="terisi">0</h2>
+          <small>Sedang digunakan</small>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-heading">
+            <p>Direservasi</p>
+            <span class="stat-icon yellow">
+              <i data-lucide="clock-3"></i>
+            </span>
+          </div>
+          <h2 data-stat="reservasi">0</h2>
+          <small>Menunggu kedatangan</small>
+        </div>
+      </div>
+
+      <div class="dashboard-grid">
+
+        <div class="panel">
+          <div class="panel-heading">
+            <div>
+              <h2>Denah Area Parkir</h2>
+              <p>Informasi ketersediaan enam slot parkir.</p>
+            </div>
+            <span class="simulation-label">Simulasi</span>
+          </div>
+
+          <div class="legend">
+            <span><b class="dot green"></b>Kosong</span>
+            <span><b class="dot red"></b>Terisi</span>
+            <span><b class="dot yellow"></b>Direservasi</span>
+          </div>
+
+          <div class="parking-layout">
+            <div class="parking-grid" id="dashboard-row-a"></div>
+
+            <div class="parking-road">
+              <i data-lucide="arrow-left-right"></i>
+              <span>JALUR KENDARAAN</span>
+            </div>
+
+            <div class="parking-grid" id="dashboard-row-b"></div>
+          </div>
+
+          <div class="selection-info" id="dashboard-selection">
+            Pilih slot kosong untuk melanjutkan booking.
+          </div>
+
+          <button id="dashboard-book-btn"
+                  class="btn btn-primary" disabled>
+            <i data-lucide="calendar-check"></i>
+            Lanjut Booking
+          </button>
+        </div>
+
+        <div class="panel occupancy-panel">
+          <h2>Ringkasan Parkir</h2>
+          <p>Kondisi kapasitas parkir saat ini.</p>
+
+          <div class="occupancy-circle">
+            <div>
+              <strong id="dashboard-occupancy">0%</strong>
+              <span>Okupansi</span>
+            </div>
+          </div>
+
+          <div class="occupancy-detail">
+            <span>Slot digunakan / direservasi</span>
+            <strong id="used-slots-label">0 dari 6</strong>
+          </div>
+
+          <div class="progress-track">
+            <div class="progress-fill"
+                 id="dashboard-progress"></div>
+          </div>
+
+          <div class="info-box">
+            <i data-lucide="info"></i>
+            <span id="parking-availability">
+              Memuat kondisi parkir...
+            </span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- BOOKING PARKIR -->
+    <section id="page-booking" class="page">
+      <div class="two-column">
+
+        <div class="panel">
+          <div class="panel-heading">
+            <div>
+              <h2>Pilih Slot Parkir</h2>
+              <p>Klik slot hijau untuk melakukan reservasi.</p>
+            </div>
+            <span class="simulation-label">6 Slot</span>
+          </div>
+
+          <div class="legend">
+            <span><b class="dot green"></b>Kosong</span>
+            <span><b class="dot red"></b>Terisi</span>
+            <span><b class="dot yellow"></b>Direservasi</span>
+          </div>
+
+          <div class="parking-layout">
+            <div class="parking-grid" id="booking-row-a"></div>
+
+            <div class="parking-road">
+              <i data-lucide="arrow-left-right"></i>
+              <span>JALUR KENDARAAN</span>
+            </div>
+
+            <div class="parking-grid" id="booking-row-b"></div>
+          </div>
+        </div>
+
+        <div class="panel booking-form-panel">
+          <h2>Form Booking</h2>
+          <p>Lengkapi data untuk memesan slot parkir.</p>
+
+          <form id="booking-form">
+
+            <div class="form-group">
+              <label for="selected-slot">Slot Dipilih</label>
+              <input type="text" id="selected-slot"
+                     placeholder="Pilih slot pada denah"
+                     readonly required>
+            </div>
+
+            <div class="form-group">
+              <label for="customer-name">Nama Pengendara</label>
+              <input type="text" id="customer-name"
+                     placeholder="Masukkan nama"
+                     maxlength="80" required>
+            </div>
+
+            <div class="form-group">
+              <label for="vehicle-plate">Nomor Kendaraan</label>
+              <input type="text" id="vehicle-plate"
+                     placeholder="Contoh: L 1234 AB"
+                     maxlength="15" required>
+            </div>
+
+            <div class="form-group">
+              <label for="vehicle-type">Jenis Kendaraan</label>
+              <select id="vehicle-type" required>
+                <option value="">Pilih kendaraan</option>
+                <option value="Mobil">Mobil</option>
+                <option value="Motor">Motor</option>
+              </select>
+            </div>
+
+            <div class="info-box">
+              <i data-lucide="clock-3"></i>
+              <span>
+                Reservasi berlaku selama 15 menit
+                setelah booking dikonfirmasi.
+              </span>
+            </div>
+
+            <button type="submit"
+                    class="btn btn-primary full-width">
+              <i data-lucide="check-circle-2"></i>
+              Konfirmasi Booking
+            </button>
+          </form>
+
+          <p id="booking-message"
+             class="form-message"
+             role="status"></p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- RESERVASI SAYA -->
+    <section id="page-reservasi" class="page">
+
+      <div class="panel">
+        <div class="panel-heading">
+          <div>
+            <h2>Reservasi Saya</h2>
+            <p>Pantau detail dan sisa waktu booking aktif.</p>
+          </div>
+        </div>
+
+        <div id="reservation-container"
+             class="reservation-container"></div>
+      </div>
+
+    </section>
+
+    <!-- MANAJEMEN PARKIR -->
+    <section id="page-manajemen" class="page">
+
+      <div class="stats">
+        <div class="stat-card">
+          <p>Total Slot</p>
+          <h2 data-stat="total">6</h2>
+        </div>
+        <div class="stat-card">
+          <p>Slot Kosong</p>
+          <h2 data-stat="kosong">0</h2>
+        </div>
+        <div class="stat-card">
+          <p>Slot Terisi</p>
+          <h2 data-stat="terisi">0</h2>
+        </div>
+        <div class="stat-card">
+          <p>Direservasi</p>
+          <h2 data-stat="reservasi">0</h2>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>Manajemen Status Parkir</h2>
+        <p>
+          Kelola kondisi slot parkir secara manual.
+        </p>
+
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Slot</th>
+                <th>Status</th>
+                <th>Ubah Status</th>
+              </tr>
+            </thead>
+            <tbody id="management-table"></tbody>
+          </table>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- LAPORAN PARKIR -->
+    <section id="page-laporan" class="page">
+
+      <div class="stats">
+        <div class="stat-card">
+          <p>Total Slot</p>
+          <h2 data-stat="total">6</h2>
+        </div>
+        <div class="stat-card">
+          <p>Slot Kosong</p>
+          <h2 data-stat="kosong">0</h2>
+        </div>
+        <div class="stat-card">
+          <p>Slot Terisi</p>
+          <h2 data-stat="terisi">0</h2>
+        </div>
+        <div class="stat-card">
+          <p>Direservasi</p>
+          <h2 data-stat="reservasi">0</h2>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>Tingkat Okupansi Parkir</h2>
+        <p>
+          Persentase slot yang sedang terisi atau direservasi.
+        </p>
+
+        <h2 id="occupancy-percent" class="occupancy-value">0%</h2>
+
+        <div class="progress-track">
+          <div id="occupancy-bar" class="progress-fill"></div>
+        </div>
+      </div>
+
+      <div class="panel report-panel">
+        <div class="panel-heading">
+          <div>
+            <h2>Riwayat Aktivitas</h2>
+            <p>Catatan aktivitas simulasi parkir.</p>
+          </div>
+        </div>
+
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Waktu</th>
+                <th>Slot</th>
+                <th>Aktivitas</th>
+              </tr>
+            </thead>
+            <tbody id="activity-table"></tbody>
+          </table>
+        </div>
+
+        <button id="export-csv" class="btn btn-outline">
+          <i data-lucide="download"></i>
+          Ekspor CSV
+        </button>
+      </div>
+
+    </section>
+
+  </main>
+</div>
+
+</body>
+</html>
